@@ -1,0 +1,109 @@
+<% layout("/layouts/boilerplate") %> <%= success %>
+<body>
+
+
+  <style> 
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter{
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+  }
+  .filter:hover{
+    opacity: 1;
+    cursor: pointer;
+
+  }
+  .tax-info{
+    display: none;
+  }
+  .tax-toggle{
+    border:1px solid black;
+    border-radius: 1rem;
+    height: 3.5rem;
+    padding: 1rem;
+    margin-left: 23rem;
+
+  }
+  
+  </style>
+  
+  <div id="filters">
+    <div class="filter">
+     
+      <i class="fa-sharp fa-solid fa-fire"></i>
+      <p>Trending</p>
+
+    </div>
+    <div class="filter">
+     
+      <i class="fa-solid fa-house-fire"></i>
+      <p>Rest</p>
+
+    </div>
+    <div class="filter">
+     
+      <i class="fa-duotone fa-umbrella-beach"></i>
+      <p>Beach</p>
+
+    </div>
+    <div class="filter">
+     
+      <i class="fa-brands fa-discord"></i>
+      <p>Houseboat</p>
+
+    </div>
+    <div class="filter">
+     
+      <i class="fa-sharp fa-light fa-island-tropical"></i>
+      <p>Tropical</p>
+
+    </div>
+    <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+    </div>
+  </div>
+  </div>
+  
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-1">
+    <% for(let listing of allListing) { %>
+<a href="/listings/<%= listing._id %>" class="listing-link">
+    <div class="card col" style="width: 18rem;">
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="listingimage"
+      style="height: 17rem;">
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">  <ul>
+
+          <li> <%= listing.title %> </li>
+          <li>  &#8377;<%= listing.price.toLocaleString("en-IN") %> / night 
+             <i class="tax-info"> &nbsp;+18% GST</i></li>
+              </ul> </p>
+      </div>
+    </div></a>
+<% } %>
+    </div>
+ 
+      <script>
+        let taxswitch =document.getElementById("flexSwitchCheckDefault");
+        taxswitch.addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for(info of taxInfo) {
+         if(info.style.display !="inline") {
+          info.style.display ="inline";
+        }else{
+          info.style.display ="none";
+        }
+        }});
+      </script>
+
+</body>
